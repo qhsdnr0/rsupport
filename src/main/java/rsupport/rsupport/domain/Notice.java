@@ -16,7 +16,7 @@ import java.util.List;
 public class Notice {
 
     @Id @GeneratedValue
-    private long id;
+    private Long id;
 
     private String title;
     private String content;
@@ -24,6 +24,7 @@ public class Notice {
     private LocalDateTime endAt;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private int viewCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
