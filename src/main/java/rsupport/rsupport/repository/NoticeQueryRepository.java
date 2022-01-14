@@ -15,7 +15,8 @@ public class NoticeQueryRepository {
     private final EntityManager em;
 
     public Notice findNoticeAndUser(Long id) {
-        return em.createQuery("select n from Notice n join User u on n.user=u", Notice.class)
+        return em.createQuery("select n from Notice n join User u on n.user=u where n.id= :id", Notice.class)
+                .setParameter("id", id)
                 .getSingleResult();
     }
 }

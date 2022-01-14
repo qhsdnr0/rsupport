@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +21,8 @@ public class Notice {
 
     private String title;
     private String content;
-    private LocalDateTime startAt;
-    private LocalDateTime endAt;
+    private LocalDate startAt;
+    private LocalDate endAt;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -40,5 +41,10 @@ public class Notice {
     public void addUser(User user) {
         this.setUser(user);
         user.getNotices().add(this);
+    }
+
+    public void addFiles(File file) {
+        file.setNotice(this);
+        this.getFiles().add(file);
     }
 }
