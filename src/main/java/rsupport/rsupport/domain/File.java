@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class File {
 
     @Id @GeneratedValue
-    private long id;
+    private Long id;
 
     private String fileUrl;
 
