@@ -24,6 +24,8 @@ public class Notice {
     private LocalDateTime endAt;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    @Column(columnDefinition = "integer default 0")
     private int viewCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,4 +36,9 @@ public class Notice {
     @OneToMany(mappedBy = "notice")
     @JsonBackReference
     private List<File> files = new ArrayList<>();
+
+    public void addUser(User user) {
+        this.setUser(user);
+        user.getNotices().add(this);
+    }
 }
