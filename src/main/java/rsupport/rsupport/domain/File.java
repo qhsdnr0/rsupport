@@ -20,9 +20,4 @@ public class File {
     @JoinColumn(name = "notice_id")
     @JsonManagedReference
     private Notice notice;
-
-    public void addNotice(Notice notice) {
-        notice.getFiles().add(this);
-        this.setNotice(notice);
-    }
 }
