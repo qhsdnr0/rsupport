@@ -34,7 +34,7 @@ public class Notice {
     @JsonManagedReference
     private User user;
 
-    @OneToMany(mappedBy = "notice")
+    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<File> files = new ArrayList<>();
 
