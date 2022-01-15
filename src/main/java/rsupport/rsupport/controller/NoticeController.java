@@ -20,16 +20,27 @@ public class NoticeController {
 
     private final NoticeService noticeService;
     private final UserService userService;
+    private final FileService fileService;
 
     @PostMapping("")
     public ResponseEntity<String> newNotice(@RequestBody NoticeForm noticeForm) {
-        noticeService.createNotice(noticeForm);
+        Notice notice = new Notice();
+        User user = userService.getUser(noticeForm.getUserId());
+        notice.setTitle(noticeForm.getTitle());
+        notice.setContent(noticeForm.getContent());
+        notice.setStartAt(noticeForm.getStartAt());
+        notice.setEndAt(noticeForm.getEndAt());
+        notice.setCreatedAt(LocalDateTime.now());
+        notice.setUpdatedAt(LocalDateTime.now());
+
+        noticeService.createNotice(user, notice);
+        noticeService.addFiles(notice, noticeForm.getFileUrls());
         return ResponseEntity.ok("CREATED");
     }
 
     @GetMapping("/{noticeId}")
     public ResponseEntity<Notice> getNotice(@PathVariable(value = "noticeId") Long id) {
-        Notice notice = noticeService.getNotice(id);
+        Notice notice = noticeService.getNoticeAndUser(id);
         notice.setViewCount(notice.getViewCount()+1);
         return ResponseEntity.ok(notice);
     }
@@ -44,7 +55,19 @@ public class NoticeController {
     public ResponseEntity<String> updateNotice(
             @PathVariable(value = "noticeId") Long id,
             @RequestBody NoticeForm noticeForm) {
-        noticeService.updateNotice(id, noticeForm);
+        User user = userService.getUser(noticeForm.getUserId());
+        Notice notice = noticeService.getNotice(id);
+        notice.setTitle(noticeForm.getTitle());
+        notice.setContent(noticeForm.getContent());
+        notice.setStartAt(noticeForm.getStartAt());
+        notice.setEndAt(noticeForm.getEndAt());
+        notice.setUpdatedAt(LocalDateTime.now());
+
+        if(noticeForm.getFileUrls() != null) {
+            noticeService.deleteAllFile(notice);
+            noticeService.addFiles(notice, noticeForm.getFileUrls());
+        }
+
         return ResponseEntity.ok("UPDATED");
     }
 }
