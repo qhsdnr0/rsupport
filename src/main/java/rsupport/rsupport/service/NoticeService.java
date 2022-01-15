@@ -40,15 +40,14 @@ public class NoticeService {
     }
 
     public void deleteAllFile(Notice notice) {
-        fileRepository.deleteAll(fileQueryRepository.getFiles(notice.getId()));
+        fileRepository.deleteAllInBatch(fileQueryRepository.getFiles(notice));
     }
 
     public void addFiles(Notice notice, List<String> fileUrls) {
         for(String fileUrl : fileUrls) {
             File file = new File();
-            file.setNotice(notice);
             file.setFileUrl(fileUrl);
-            notice.getFiles().add(file);
+            notice.addFiles(file);
             fileRepository.save(file);
         }
     }

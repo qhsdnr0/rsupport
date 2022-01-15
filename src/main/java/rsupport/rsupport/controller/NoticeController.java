@@ -20,7 +20,6 @@ public class NoticeController {
 
     private final NoticeService noticeService;
     private final UserService userService;
-    private final FileService fileService;
 
     @PostMapping("")
     public ResponseEntity<String> newNotice(@RequestBody NoticeForm noticeForm) {
