@@ -50,7 +50,7 @@ public class Notice {
     @Column(columnDefinition = "integer default 0")
     private int viewCount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
