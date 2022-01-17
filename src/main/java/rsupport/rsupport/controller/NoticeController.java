@@ -1,9 +1,15 @@
 package rsupport.rsupport.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import rsupport.rsupport.config.RedisConfig;
 import rsupport.rsupport.domain.Notice;
 import rsupport.rsupport.domain.User;
 import rsupport.rsupport.service.NoticeService;
@@ -17,6 +23,8 @@ import java.time.LocalDateTime;
 @Transactional
 @CrossOrigin
 public class NoticeController {
+
+    @Autowired CacheManager cacheManager;
 
     private final NoticeService noticeService;
     private final UserService userService;
@@ -51,10 +59,13 @@ public class NoticeController {
     }
 
     @PatchMapping("/{noticeId}")
+    @CacheEvict(value = "notice", key = "#id", cacheManager = "redisCacheManager")
     public ResponseEntity<String> updateNotice(
             @PathVariable(value = "noticeId") Long id,
             @RequestBody NoticeForm noticeForm) {
-        User user = userService.getUser(noticeForm.getUserId());
+
+        cacheManager.getCache("notice").evict(id);
+
         Notice notice = noticeService.getNotice(id);
         notice.setTitle(noticeForm.getTitle());
         notice.setContent(noticeForm.getContent());
