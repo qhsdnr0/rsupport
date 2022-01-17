@@ -3,6 +3,7 @@ package rsupport.rsupport.service;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
 import org.hibernate.proxy.HibernateProxy;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,11 +30,12 @@ public class NoticeService {
         noticeRepository.save(notice);
     }
 
-    @Cacheable(value = "notice", cacheManager = "redisCacheManager")
+    @Cacheable(value = "notice", key = "#id", cacheManager = "redisCacheManager")
     public Notice getNotice(Long id) {
         return Hibernate.unproxy(noticeRepository.getById(id), Notice.class);
     }
 
+    @CacheEvict(value = "notice", key = "#id", cacheManager = "redisCacheManager")
     public void deleteNotice(Long id) {
         noticeRepository.deleteById(id);
     }
