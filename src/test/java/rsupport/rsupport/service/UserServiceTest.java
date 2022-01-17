@@ -1,5 +1,6 @@
 package rsupport.rsupport.service;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,13 @@ class UserServiceTest {
     void setUp() throws Exception {
         User user = new User();
         user.setName("user");
-        userService.createUser(user);
+        userRepository.save(user);
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        userRepository.deleteAll();
+
     }
 
     @Test
@@ -34,6 +41,6 @@ class UserServiceTest {
 
     @Test
     void getUser() {
-        assertEquals("user", userService.getUser(1L).getName());
+        assertEquals("user", userRepository.findAll().get(0).getName());
     }
 }

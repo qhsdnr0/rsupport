@@ -1,0 +1,5 @@
+34170:C 17 Jan 2022 18:31:05.724 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+34170:C 17 Jan 2022 18:31:05.724 # Redis version=5.0.7, bits=64, commit=00000000, modified=0, pid=34170, just started
+34170:C 17 Jan 2022 18:31:05.724 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+34170:M 17 Jan 2022 18:31:05.725 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+34170:M 17 Jan 2022 18:31:05.725 # Could not create server TCP listening socket *:6379: bind: Address already in use

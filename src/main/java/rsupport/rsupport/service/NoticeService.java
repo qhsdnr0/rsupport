@@ -1,6 +1,9 @@
 package rsupport.rsupport.service;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import rsupport.rsupport.controller.NoticeForm;
@@ -18,7 +21,6 @@ import java.util.List;
 public class NoticeService {
 
     private final NoticeRepository noticeRepository;
-    private final NoticeQueryRepository noticeQueryRepository;
     private final FileRepository fileRepository;
     private final FileQueryRepository fileQueryRepository;
 
@@ -27,12 +29,9 @@ public class NoticeService {
         noticeRepository.save(notice);
     }
 
+    @Cacheable(value = "notice", cacheManager = "redisCacheManager")
     public Notice getNotice(Long id) {
-        return noticeRepository.getById(id);
-    }
-
-    public Notice getNoticeAndUser(Long id) {
-        return noticeQueryRepository.findNoticeAndUser(id);
+        return Hibernate.unproxy(noticeRepository.getById(id), Notice.class);
     }
 
     public void deleteNotice(Long id) {
