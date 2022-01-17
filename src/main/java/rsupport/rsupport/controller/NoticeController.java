@@ -39,9 +39,9 @@ public class NoticeController {
 
     @GetMapping("/{noticeId}")
     public ResponseEntity<Notice> getNotice(@PathVariable(value = "noticeId") Long id) {
-        Notice notice = noticeService.getNoticeAndUser(id);
+        Notice notice = noticeService.getNotice(id);
         notice.setViewCount(notice.getViewCount()+1);
-        return ResponseEntity.ok(notice);
+        return ResponseEntity.ok().body(notice);
     }
 
     @DeleteMapping("/{noticeId}")
