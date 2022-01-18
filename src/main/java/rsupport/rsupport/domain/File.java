@@ -16,6 +16,7 @@ public class File {
     @Id @GeneratedValue
     private Long id;
 
+    @Column(length = 2000)
     private String fileUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
