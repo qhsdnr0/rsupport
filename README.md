@@ -114,8 +114,10 @@
 git clone https://github.com/qhsdnr0/rsupport.git
 cd rsupport
 ```
+
 <br>
 2. src/main/resources와 src/test/resources에 application.properties파일을 추가한다.
+
 ```
 // src/main/resources/application.properties
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
@@ -154,16 +156,18 @@ spring.jpa.hibernate.ddl-auto=create-drop
 
 spring.jpa.properties.hibernate.format_sql=true
 ```
+
 <br>
 3. 캐시 사용을 위한 Redis를 설치한다.
 
 ```
 sudo apt-get install redis
 ```
+
 <br>
-4. 프로젝트 폴더에서 `./gradlew build` 명령어를 통해 빌드한다.
+4. 프로젝트 폴더에서 ./gradlew build 명령어를 통해 빌드한다.
 <br>
-5. `java -jar build/libs/rsupport-0.0.1-SNAPSHOT.jar` 명령어를 통해 프로젝트를 실행한다.
+5. java -jar build/libs/rsupport-0.0.1-SNAPSHOT.jar 명령어를 통해 프로젝트를 실행한다.
 
 #### API 문서
 
