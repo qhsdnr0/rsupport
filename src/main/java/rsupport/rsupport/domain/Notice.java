@@ -29,6 +29,8 @@ public class Notice {
     private Long id;
 
     private String title;
+
+    @Column(length = 2000)
     private String content;
 
     @JsonDeserialize(using = LocalDateDeserializer.class)
