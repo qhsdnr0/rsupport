@@ -74,7 +74,7 @@
 ### ▶︎ 공지사항 등록, 조회, 삭제, 수정 API 
 
 - Post     `/notices`를 통해 공지사항을 등록하며 등록 성공시 `CREATED` 메시지를 리턴합니다.
-- Get      `/notices/{noticeId}`로 공지사항을 조회합니다.
+- Get      `/notices/{noticeId}`로 공지사항을 조회합니다. API가 호출될 때마다 조회수가 1씩 증가합니다.
 - Delete `/notices/{noticeId}`로 공지사항을 삭제합니다.
 - Patch   `/notices/{noticeId}`로 공지사항을 수정합니다.
 
@@ -94,10 +94,12 @@
 따라서 조회기능을 효율적으로 사용하기 위한 캐싱기능을 활용하는 것으로 결정했습니다.
 ```
 
-- 캐시를 활용하지 않았을 때의 속도
-![image-20220119023429905](/home/kbw/.config/Typora/typora-user-images/image-20220119023429905.png) 
-- 캐시를 활용했을 때의 속도
-![image-20220119023654426](/home/kbw/.config/Typora/typora-user-images/image-20220119023654426.png)
+- 캐시를 활용하지 않았을 때의 속도<br>
+![image](https://user-images.githubusercontent.com/80999321/149992489-b11214fb-f6ed-4351-bbd5-1737f40c0667.png)
+ 
+- 캐시를 활용했을 때의 속도<br>
+![image](https://user-images.githubusercontent.com/80999321/149992502-9f5d6fea-0912-4a06-b637-16aced8515ea.png)
+
 
 
 
