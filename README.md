@@ -57,7 +57,8 @@
 
 
 
-![image-20220119011557250](/home/kbw/.config/Typora/typora-user-images/image-20220119011557250.png)
+![image](https://user-images.githubusercontent.com/80999321/149992102-e40ce8d7-a95a-4bb7-bbe7-39c42bf7b273.png)
+
 
 <br>
 
