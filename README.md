@@ -92,7 +92,16 @@
 ```
 본 프로젝트에서 대량의 트래픽은 공지사항 조회에서 발생할 가능성이 가장 높다고 판단했습니다.
 따라서 조회기능을 효율적으로 사용하기 위한 캐싱기능을 활용하는 것으로 결정했습니다.
+조회 시 공지사항 데이터를 Redis서버에 저장
+삭제 or 수정 시 Redis서버에 저장된 데이터 삭제
+
+최초 조회시 해당 데이터를 Redis서버에 저장합니다. 
+이후 동일 공지사항 조회는 Redis서버에 저장된 데이터를 불러오는 방식으로 매우 빠르며 실제 DB hit역시 줄것으로 판단했습니다.
 ```
+
+### ▶︎ 실제 파일첨부 기능 미구현
+- 파일첨부 기능을 활용하기 위해서는 AWS S3를 이용해서 별도의 파일 저장소를 확보해야하지만 프리티어 요금제가 별도로 존재하지 않는 관계로 첨부파일 주소만 DB에 저장하는 방식으로 구현했습니다.
+- 실제로 이 기능을 구현한다면 S3와 연동할 클래스를 추가하여 S3에는 해당 파일이 등록되도록, DB에는 해당 파일 주소가 등록되도록 구현할 수 있겠습니다.
 
 - 캐시를 활용하지 않았을 때의 속도<br>
 ![image](https://user-images.githubusercontent.com/80999321/149992489-b11214fb-f6ed-4351-bbd5-1737f40c0667.png)
@@ -122,7 +131,7 @@ cd rsupport
 // src/main/resources/application.properties
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
-spring.datasource.url={localhost 또는 RDS 주소}:3306/rsupport?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+spring.datasource.url={localhost 또는 RDS 주소}:{port 번호}/{DB명}?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
 
 spring.datasource.username={계정명}
 
@@ -144,7 +153,7 @@ spring.jackson.serialization.fail-on-empty-beans=false
 // src/test/resources/application.properties
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
-spring.datasource.url=jdbc:mysql://{localhost 또는 RDS 주소}:3306/test_rsupport?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+spring.datasource.url={localhost 또는 RDS 주소}:{port 번호}/{test_DB명}?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
 
 spring.datasource.username={계정명}
 
